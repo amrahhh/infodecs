@@ -1,7 +1,3 @@
-"""
-Django settings for the CropScience API project.
-"""
-
 import os
 from datetime import timedelta
 from pathlib import Path

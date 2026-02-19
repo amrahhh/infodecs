@@ -1,7 +1,3 @@
-"""
-Django-filter FilterSet for the Crop model.
-"""
-
 import django_filters
 
 from .models import Crop

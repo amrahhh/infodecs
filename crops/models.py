@@ -1,9 +1,3 @@
-"""
-Models for the crops application.
-
-Defines CropCategory and Crop models for managing agricultural crop data.
-"""
-
 from django.db import models
 
 

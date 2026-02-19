@@ -1,9 +1,3 @@
-"""
-Tests for user authentication endpoints.
-
-Covers registration, login, logout, and validation errors.
-"""
-
 import pytest
 from django.urls import reverse
 

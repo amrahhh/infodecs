@@ -1,0 +1,188 @@
+[
+  {
+    "model": "crops.cropcategory",
+    "pk": 1,
+    "fields": {
+      "name": "Cereals",
+      "description": "Grains cultivated for their edible starchy seeds, forming a staple food source worldwide.",
+      "created_at": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "crops.cropcategory",
+    "pk": 2,
+    "fields": {
+      "name": "Legumes",
+      "description": "Plants in the family Fabaceae known for nitrogen-fixing root nodules and protein-rich seeds.",
+      "created_at": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "crops.cropcategory",
+    "pk": 3,
+    "fields": {
+      "name": "Vegetables",
+      "description": "Herbaceous plants cultivated for their edible leaves, roots, stems, or fruits.",
+      "created_at": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "crops.cropcategory",
+    "pk": 4,
+    "fields": {
+      "name": "Fruits",
+      "description": "Plants cultivated for their sweet or savory edible fruits.",
+      "created_at": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "crops.cropcategory",
+    "pk": 5,
+    "fields": {
+      "name": "Oilseeds",
+      "description": "Crops grown primarily for oil extraction from their seeds.",
+      "created_at": "2025-01-01T00:00:00Z"
+    }
+  },
+
+  {
+    "model": "crops.crop",
+    "pk": 1,
+    "fields": {
+      "name": "Wheat",
+      "scientific_name": "Triticum aestivum",
+      "category": 1,
+      "description": "One of the most widely cultivated cereal grains, used for bread, pasta, and pastry production.",
+      "growth_duration_days": 120,
+      "water_requirements": "medium",
+      "created_at": "2025-01-01T00:00:00Z",
+      "updated_at": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "crops.crop",
+    "pk": 2,
+    "fields": {
+      "name": "Rice",
+      "scientific_name": "Oryza sativa",
+      "category": 1,
+      "description": "A staple cereal grain for more than half of the world's population, grown in flooded paddies.",
+      "growth_duration_days": 150,
+      "water_requirements": "high",
+      "created_at": "2025-01-01T00:00:00Z",
+      "updated_at": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "crops.crop",
+    "pk": 3,
+    "fields": {
+      "name": "Corn",
+      "scientific_name": "Zea mays",
+      "category": 1,
+      "description": "A versatile cereal crop used for food, animal feed, and ethanol production.",
+      "growth_duration_days": 90,
+      "water_requirements": "medium",
+      "created_at": "2025-01-01T00:00:00Z",
+      "updated_at": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "crops.crop",
+    "pk": 4,
+    "fields": {
+      "name": "Soybean",
+      "scientific_name": "Glycine max",
+      "category": 2,
+      "description": "A high-protein legume widely used in food products and as animal feed.",
+      "growth_duration_days": 100,
+      "water_requirements": "medium",
+      "created_at": "2025-01-01T00:00:00Z",
+      "updated_at": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "crops.crop",
+    "pk": 5,
+    "fields": {
+      "name": "Lentil",
+      "scientific_name": "Lens culinaris",
+      "category": 2,
+      "description": "A lens-shaped pulse rich in protein and iron, commonly used in soups and stews.",
+      "growth_duration_days": 110,
+      "water_requirements": "low",
+      "created_at": "2025-01-01T00:00:00Z",
+      "updated_at": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "crops.crop",
+    "pk": 6,
+    "fields": {
+      "name": "Chickpea",
+      "scientific_name": "Cicer arietinum",
+      "category": 2,
+      "description": "A protein-rich legume used in hummus, falafel, and many traditional dishes worldwide.",
+      "growth_duration_days": 100,
+      "water_requirements": "low",
+      "created_at": "2025-01-01T00:00:00Z",
+      "updated_at": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "crops.crop",
+    "pk": 7,
+    "fields": {
+      "name": "Tomato",
+      "scientific_name": "Solanum lycopersicum",
+      "category": 3,
+      "description": "A widely cultivated fruit used as a vegetable, rich in lycopene and vitamins.",
+      "growth_duration_days": 75,
+      "water_requirements": "medium",
+      "created_at": "2025-01-01T00:00:00Z",
+      "updated_at": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "crops.crop",
+    "pk": 8,
+    "fields": {
+      "name": "Carrot",
+      "scientific_name": "Daucus carota",
+      "category": 3,
+      "description": "A root vegetable rich in beta-carotene, typically orange in color.",
+      "growth_duration_days": 80,
+      "water_requirements": "medium",
+      "created_at": "2025-01-01T00:00:00Z",
+      "updated_at": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "crops.crop",
+    "pk": 9,
+    "fields": {
+      "name": "Strawberry",
+      "scientific_name": "Fragaria × ananassa",
+      "category": 4,
+      "description": "A sweet, red fruit prized for its flavor and nutritional value.",
+      "growth_duration_days": 90,
+      "water_requirements": "high",
+      "created_at": "2025-01-01T00:00:00Z",
+      "updated_at": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "crops.crop",
+    "pk": 10,
+    "fields": {
+      "name": "Sunflower",
+      "scientific_name": "Helianthus annuus",
+      "category": 5,
+      "description": "A tall flowering plant grown for its oil-rich seeds and ornamental value.",
+      "growth_duration_days": 85,
+      "water_requirements": "low",
+      "created_at": "2025-01-01T00:00:00Z",
+      "updated_at": "2025-01-01T00:00:00Z"
+    }
+  }
+]

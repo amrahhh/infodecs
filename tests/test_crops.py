@@ -1,9 +1,3 @@
-"""
-Tests for crop and crop category endpoints.
-
-Covers CRUD operations, authentication guards, filtering, search, and Excel export.
-"""
-
 import pytest
 from django.urls import reverse
 

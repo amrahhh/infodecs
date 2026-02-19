@@ -1,7 +1,3 @@
-"""
-Custom pagination classes for the crops application.
-"""
-
 from rest_framework.pagination import PageNumberPagination
 
 

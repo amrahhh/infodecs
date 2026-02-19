@@ -1,7 +1,3 @@
-"""
-Shared pytest fixtures for the CropScience API test suite.
-"""
-
 import pytest
 from django.contrib.auth.models import User
 from rest_framework.test import APIClient

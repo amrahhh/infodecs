@@ -1,17 +1,10 @@
-"""
-Views for the crops application.
-
-Provides ViewSets for CropCategory and Crop resources, plus an Excel export action.
-"""
-
 from io import BytesIO
 
 from django.http import HttpResponse
 from drf_spectacular.utils import extend_schema, extend_schema_view
 from openpyxl import Workbook
-from rest_framework import status, viewsets
+from rest_framework import viewsets
 from rest_framework.decorators import action
-from rest_framework.response import Response
 
 from .filters import CropFilter
 from .models import Crop, CropCategory

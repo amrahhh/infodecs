@@ -1,9 +1,3 @@
-"""
-Views for the users (authentication) application.
-
-Provides registration, logout, and delegates login / token refresh to simplejwt.
-"""
-
 from drf_spectacular.utils import extend_schema
 from rest_framework import generics, permissions, status
 from rest_framework.response import Response

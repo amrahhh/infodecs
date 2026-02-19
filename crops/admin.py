@@ -1,7 +1,3 @@
-"""
-Admin configuration for the crops application.
-"""
-
 from django.contrib import admin
 
 from .models import Crop, CropCategory

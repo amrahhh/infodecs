@@ -1,9 +1,3 @@
-"""
-Serializers for the crops application.
-
-Provides serialization and validation for CropCategory and Crop resources.
-"""
-
 from rest_framework import serializers
 
 from .models import Crop, CropCategory
