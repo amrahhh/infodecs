@@ -1,3 +1,4 @@
+from datetime import datetime
 from io import BytesIO
 
 from django.http import HttpResponse
@@ -111,5 +112,6 @@ class CropViewSet(viewsets.ModelViewSet):
             buffer.getvalue(),
             content_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
         )
-        response["Content-Disposition"] = 'attachment; filename="crops_export.xlsx"'
+        now = datetime.now().strftime("%Y-%m-%d_%H%M")
+        response["Content-Disposition"] = f'attachment; filename="crops_export_{now}.xlsx"'
         return response

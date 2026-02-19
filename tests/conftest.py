@@ -44,7 +44,7 @@ def auth_client(api_client, user):
 def category(db):
     """Create and return a sample CropCategory."""
     return CropCategory.objects.create(
-        name="Cereals",
+        name="Test Cereals",
         description="Cereal grain crops.",
     )
 
@@ -53,8 +53,8 @@ def category(db):
 def crop(category):
     """Create and return a sample Crop linked to the default category."""
     return Crop.objects.create(
-        name="Wheat",
-        scientific_name="Triticum aestivum",
+        name="Test Wheat",
+        scientific_name="Triticum test",
         category=category,
         description="A staple cereal crop.",
         growth_duration_days=120,

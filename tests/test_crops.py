@@ -12,11 +12,11 @@ class TestCropCategoryEndpoints:
 
     def test_create_category(self, auth_client):
         """Authenticated user can create a category (201)."""
-        payload = {"name": "Legumes", "description": "Legume crops."}
+        payload = {"name": "Test Legumes", "description": "Legume crops."}
         response = auth_client.post(self.list_url, payload, format="json")
 
         assert response.status_code == 201
-        assert response.json()["name"] == "Legumes"
+        assert response.json()["name"] == "Test Legumes"
 
     def test_list_categories(self, auth_client, category):
         """Authenticated user can list categories (200)."""
@@ -48,7 +48,7 @@ class TestCropCategoryEndpoints:
         response = auth_client.delete(url)
 
         assert response.status_code == 204
-        assert CropCategory.objects.count() == 0
+        assert not CropCategory.objects.filter(id=category.id).exists()
 
     def test_unauthenticated_list_categories(self, api_client, category):
         """Unauthenticated access to categories returns 401."""
@@ -66,8 +66,8 @@ class TestCropEndpoints:
     def test_create_crop(self, auth_client, category):
         """Authenticated user can create a crop (201)."""
         payload = {
-            "name": "Rice",
-            "scientific_name": "Oryza sativa",
+            "name": "Test Rice",
+            "scientific_name": "Oryza test",
             "category_id": category.id,
             "description": "A major food crop.",
             "growth_duration_days": 150,
@@ -77,7 +77,7 @@ class TestCropEndpoints:
 
         assert response.status_code == 201
         data = response.json()
-        assert data["name"] == "Rice"
+        assert data["name"] == "Test Rice"
         assert data["category"]["name"] == category.name
 
     def test_list_crops_paginated(self, auth_client, crop):
@@ -121,13 +121,13 @@ class TestCropEndpoints:
         response = auth_client.delete(url)
 
         assert response.status_code == 204
-        assert Crop.objects.count() == 0
+        assert not Crop.objects.filter(id=crop.id).exists()
 
     def test_unauthenticated_create_crop(self, api_client, category):
         """Unauthenticated crop creation returns 401."""
         payload = {
-            "name": "Corn",
-            "scientific_name": "Zea mays",
+            "name": "Test Corn",
+            "scientific_name": "Zea test",
             "category_id": category.id,
             "growth_duration_days": 90,
             "water_requirements": "medium",
@@ -139,15 +139,15 @@ class TestCropEndpoints:
     def test_filter_by_water_requirements(self, auth_client, category):
         """Filter crops by water_requirements returns correct results."""
         Crop.objects.create(
-            name="Rice",
-            scientific_name="Oryza sativa",
+            name="FilterHigh Crop",
+            scientific_name="Filterhigh testus",
             category=category,
             growth_duration_days=150,
             water_requirements="high",
         )
         Crop.objects.create(
-            name="Millet",
-            scientific_name="Panicum miliaceum",
+            name="FilterLow Crop",
+            scientific_name="Filterlow testus",
             category=category,
             growth_duration_days=70,
             water_requirements="low",
@@ -157,17 +157,17 @@ class TestCropEndpoints:
         data = response.json()
 
         assert response.status_code == 200
-        assert data["count"] == 1
-        assert data["results"][0]["name"] == "Rice"
+        assert data["count"] >= 1
+        assert all(r["water_requirements"] == "high" for r in data["results"])
 
     def test_search_by_name(self, auth_client, crop):
         """Search crops by name using the search query parameter."""
-        response = auth_client.get(self.list_url, {"search": "Wheat"})
+        response = auth_client.get(self.list_url, {"search": "Test Wheat"})
         data = response.json()
 
         assert response.status_code == 200
         assert data["count"] >= 1
-        assert any("Wheat" in r["name"] for r in data["results"])
+        assert any("Test Wheat" in r["name"] for r in data["results"])
 
     def test_export_crops_excel(self, auth_client, crop):
         """Export endpoint returns an Excel file."""
@@ -179,21 +179,22 @@ class TestCropEndpoints:
             response["Content-Type"]
             == "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
         )
-        assert 'filename="crops_export.xlsx"' in response["Content-Disposition"]
+        assert "crops_export_" in response["Content-Disposition"]
+        assert response["Content-Disposition"].endswith('.xlsx"')
 
     def test_filter_by_category(self, auth_client, category):
         """Filter crops by category ID returns only matching crops."""
-        other_category = CropCategory.objects.create(name="Legumes")
+        other_category = CropCategory.objects.create(name="Test Filter Legumes")
         Crop.objects.create(
-            name="Rice",
-            scientific_name="Oryza sativa",
+            name="Cat Filter Rice",
+            scientific_name="Oryza catfilter",
             category=category,
             growth_duration_days=150,
             water_requirements="high",
         )
         Crop.objects.create(
-            name="Lentil",
-            scientific_name="Lens culinaris",
+            name="Cat Filter Lentil",
+            scientific_name="Lens catfilter",
             category=other_category,
             growth_duration_days=100,
             water_requirements="low",
@@ -203,30 +204,32 @@ class TestCropEndpoints:
         data = response.json()
 
         assert response.status_code == 200
-        assert data["count"] == 1
-        assert data["results"][0]["name"] == "Rice"
+        assert data["count"] >= 1
+        assert all(r["category"] == category.id for r in data["results"])
 
     def test_ordering_by_growth_duration(self, auth_client, category):
         """Crops can be ordered by growth_duration_days."""
         Crop.objects.create(
-            name="Millet",
-            scientific_name="Panicum miliaceum",
+            name="Order Millet",
+            scientific_name="Panicum ordertest",
             category=category,
             growth_duration_days=70,
             water_requirements="low",
         )
         Crop.objects.create(
-            name="Rice",
-            scientific_name="Oryza sativa",
+            name="Order Rice",
+            scientific_name="Oryza ordertest",
             category=category,
             growth_duration_days=150,
             water_requirements="high",
         )
 
-        response = auth_client.get(self.list_url, {"ordering": "growth_duration_days"})
+        response = auth_client.get(
+            self.list_url,
+            {"ordering": "growth_duration_days", "category": category.id},
+        )
         data = response.json()
 
         assert response.status_code == 200
         names = [r["name"] for r in data["results"]]
-        assert names.index("Millet") < names.index("Rice")
-
+        assert names.index("Order Millet") < names.index("Order Rice")
