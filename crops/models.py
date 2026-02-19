@@ -63,7 +63,7 @@ class Crop(models.Model):
         default="",
         help_text="Optional description of the crop.",
     )
-    growth_duration_days = models.PositiveIntegerField(
+    growth_duration_days = models.IntegerField(
         help_text="Number of days from planting to harvest.",
     )
     water_requirements = models.CharField(

@@ -99,3 +99,27 @@ class TestLogout:
         response = api_client.post(self.url, {"refresh": "fake"}, format="json")
 
         assert response.status_code == 401
+
+
+@pytest.mark.django_db
+class TestTokenRefresh:
+    """Tests for POST /api/auth/token/refresh/."""
+
+    url = reverse("auth-token-refresh")
+
+    def test_refresh_success(self, api_client, user):
+        """A valid refresh token returns a new access token."""
+        from rest_framework_simplejwt.tokens import RefreshToken
+
+        refresh = RefreshToken.for_user(user)
+        response = api_client.post(self.url, {"refresh": str(refresh)}, format="json")
+
+        assert response.status_code == 200
+        data = response.json()
+        assert "access" in data
+
+    def test_refresh_invalid_token(self, api_client):
+        """An invalid refresh token returns 401."""
+        response = api_client.post(self.url, {"refresh": "invalid-token"}, format="json")
+
+        assert response.status_code == 401
